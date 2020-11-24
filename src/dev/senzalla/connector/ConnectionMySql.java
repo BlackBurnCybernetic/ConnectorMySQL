@@ -1,10 +1,9 @@
 package dev.senzalla.connector;
 
-import dev.senzalla.exception.ConnectionException;
+import dev.senzalla.exception.ConnecctionException;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -17,10 +16,6 @@ import java.sql.*;
  * @github github.com/Bomsalvez
  */
 public class ConnectionMySql {
-
-    public static void main(String[] args) {
-        getConnection();
-    }
 
     private static final Path DIR = Paths.get(System.getProperty("user.dir") + "/config/");
     private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -50,7 +45,7 @@ public class ConnectionMySql {
                 Class.forName(DRIVER);
                 return DriverManager.getConnection(URL, USER, PASS);
             } catch (ClassNotFoundException | SQLException ex) {
-                throw new ConnectionException("Houve um Problema com sua Conexão!");
+                throw new ConnecctionException("Houve um Problema com sua Conexão!");
             }
         }
         return null;
@@ -62,7 +57,7 @@ public class ConnectionMySql {
                 con.close();
             }
         } catch (SQLException ex) {
-            throw new ConnectionException("Erro ao fechar a conexão com o Banco de Dados: ");
+            throw new ConnecctionException("Erro ao fechar a conexão com o Banco de Dados: ");
         }
     }
 
@@ -85,7 +80,7 @@ public class ConnectionMySql {
                 rs.close();
             }
         } catch (SQLException ex) {
-            throw new ConnectionException("Erro ao fechar a conexão com o Banco de Dados: ");
+            throw new ConnecctionException("Erro ao fechar a conexão com o Banco de Dados: ");
         }
     }
 

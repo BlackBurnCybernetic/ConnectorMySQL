@@ -2,8 +2,8 @@ package dev.senzalla.exception;
 
 import javax.swing.*;
 
-public class ConnectionException extends RuntimeException {
-    public ConnectionException(String msg) {
+public class ConnecctionException extends RuntimeException {
+    public ConnecctionException(String msg) {
         JOptionPane.showMessageDialog(
                 new JFrame(),
                 msg,

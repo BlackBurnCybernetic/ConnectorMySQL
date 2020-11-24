@@ -121,7 +121,7 @@ public class FrmConnectorCreate extends javax.swing.JFrame {
         path.put("pass", String.valueOf(txtPass.getPassword()));
 
         final File DIR = new File(System.getProperty("user.dir") + "/config/");
-//        DIR.mkdir();
+        DIR.mkdir();
 
         path.forEach((dir, value) -> {
             String file = String.format("%s/%s.properties", DIR, dir);
