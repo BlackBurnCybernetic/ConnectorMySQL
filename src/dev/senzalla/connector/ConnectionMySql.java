@@ -2,13 +2,11 @@ package dev.senzalla.connector;
 
 import dev.senzalla.exception.ConnecctionException;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * @author Bomsalvez Freitas
@@ -17,21 +15,21 @@ import java.sql.*;
  */
 public class ConnectionMySql {
 
-    private static final Path DIR = Paths.get(System.getProperty("user.dir") + "/config/");
+    private static final File DIR = new File(System.getProperty("user.dir") + "/config/database.properties");
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String SERVER = config(DIR + "/server.properties");
-    private static final String URL = "jdbc:mysql://" + SERVER + "/" + config(DIR + "/nameDB.properties");
-    private static final String USER = config(DIR + "/user.properties");
-    private static final String PASS = config(DIR + "/pass.properties");
+    private static final String SERVER = config("server");
+    private static final String URL = "jdbc:mysql://" + SERVER + "/" + config("nameDB");
+    private static final String USER = config("user");
+    private static final String PASS = config("pass");
     private static boolean trow;
 
     private static String config(String info) {
         try {
-            FileInputStream dir = new FileInputStream(info);
-            InputStreamReader input = new InputStreamReader(dir);
-            BufferedReader br = new BufferedReader(input);
-            return br.readLine();
-        } catch (IOException ex) {
+            FileInputStream input = new FileInputStream(DIR);
+            Properties properties = new Properties();
+            properties.load(input);
+            return properties.getProperty(info);
+        } catch (IOException e) {
             trow = true;
             return null;
         }
